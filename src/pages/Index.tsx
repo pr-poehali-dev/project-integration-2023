@@ -32,7 +32,7 @@ const Index = () => {
               <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
             </div>
             <div>
-              <h1 className="text-lg sm:text-xl font-bold text-white">Общайся</h1>
+              <h1 className="text-lg sm:text-xl font-bold text-white">Teleonly</h1>
               <p className="text-xs text-[#b9bbbe] hidden sm:block">Простое общение для всех</p>
             </div>
           </div>
@@ -92,7 +92,7 @@ const Index = () => {
             className={`${mobileSidebarOpen ? "block" : "hidden"} lg:block w-full lg:w-60 bg-[#2f3136] flex flex-col`}
           >
             <div className="p-4 border-b border-[#202225] flex items-center justify-between">
-              <h2 className="text-white font-semibold text-base">Наше сообщество</h2>
+              <h2 className="text-white font-semibold text-base">Teleonly</h2>
               <Button
                 variant="ghost"
                 className="lg:hidden text-[#b9bbbe] hover:text-white hover:bg-[#40444b] p-1"
