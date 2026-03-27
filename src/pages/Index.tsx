@@ -14,6 +14,7 @@ import {
   X,
   Hash,
   ArrowRight,
+  Phone,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
@@ -21,6 +22,15 @@ import Icon from "@/components/ui/icon";
 const Index = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const [regOpen, setRegOpen] = useState(false);
+  const [phone, setPhone] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = () => {
+    if (phone.length >= 10) {
+      setSubmitted(true);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#36393f] text-white overflow-x-hidden">
@@ -40,7 +50,7 @@ const Index = () => {
             <Button variant="ghost" className="text-[#b9bbbe] hover:text-white hover:bg-[#40444b]">
               О нас
             </Button>
-            <Button className="bg-[#5865f2] hover:bg-[#4752c4] text-white px-6 py-2 rounded text-sm font-medium">
+            <Button onClick={() => setRegOpen(true)} className="bg-[#5865f2] hover:bg-[#4752c4] text-white px-6 py-2 rounded text-sm font-medium">
               Присоединиться
             </Button>
           </div>
@@ -59,7 +69,7 @@ const Index = () => {
               <Button variant="ghost" className="text-[#b9bbbe] hover:text-white hover:bg-[#40444b] justify-start">
                 О нас
               </Button>
-              <Button className="bg-[#5865f2] hover:bg-[#4752c4] text-white px-6 py-2 rounded text-sm font-medium">
+              <Button onClick={() => setRegOpen(true)} className="bg-[#5865f2] hover:bg-[#4752c4] text-white px-6 py-2 rounded text-sm font-medium">
                 Присоединиться
               </Button>
             </div>
@@ -435,6 +445,90 @@ const Index = () => {
           </div>
         </div>
       </div>
+
+      {/* Кнопка присоединиться — фиксированная снизу */}
+      {!regOpen && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40">
+          <Button
+            onClick={() => setRegOpen(true)}
+            className="bg-[#5865f2] hover:bg-[#4752c4] text-white px-8 py-4 rounded-full text-base font-semibold shadow-2xl flex items-center gap-2"
+          >
+            <MessageCircle className="w-5 h-5" />
+            Присоединиться к Teleonly
+          </Button>
+        </div>
+      )}
+
+      {/* Шторка регистрации снизу */}
+      {regOpen && (
+        <>
+          <div
+            className="fixed inset-0 bg-black/60 z-40"
+            onClick={() => { setRegOpen(false); setSubmitted(false); setPhone(""); }}
+          />
+          <div className="fixed bottom-0 left-0 right-0 z-50 bg-[#2f3136] rounded-t-2xl p-6 sm:p-8 shadow-2xl max-w-lg mx-auto">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#5865f2] rounded-full flex items-center justify-center">
+                  <MessageCircle className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h2 className="text-white font-bold text-lg">Teleonly</h2>
+                  <p className="text-[#b9bbbe] text-xs">Регистрация по номеру телефона</p>
+                </div>
+              </div>
+              <Button
+                variant="ghost"
+                onClick={() => { setRegOpen(false); setSubmitted(false); setPhone(""); }}
+                className="text-[#b9bbbe] hover:text-white hover:bg-[#40444b] p-2"
+              >
+                <X className="w-5 h-5" />
+              </Button>
+            </div>
+
+            {!submitted ? (
+              <>
+                <p className="text-[#b9bbbe] text-sm mb-4">
+                  Введите номер телефона — мы отправим код для входа
+                </p>
+                <div className="flex gap-3">
+                  <div className="flex items-center bg-[#40444b] rounded-lg px-3 text-[#dcddde] text-sm font-medium border border-[#4f545c]">
+                    +7
+                  </div>
+                  <input
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
+                    placeholder="999 123 45 67"
+                    className="flex-1 bg-[#40444b] border border-[#4f545c] rounded-lg px-4 py-3 text-white placeholder-[#72767d] text-sm focus:outline-none focus:border-[#5865f2]"
+                  />
+                </div>
+                <Button
+                  onClick={handleSubmit}
+                  disabled={phone.length < 10}
+                  className="w-full mt-4 bg-[#5865f2] hover:bg-[#4752c4] disabled:opacity-40 text-white py-3 rounded-lg text-sm font-semibold"
+                >
+                  <Phone className="w-4 h-4 mr-2" />
+                  Получить код
+                </Button>
+                <p className="text-[#72767d] text-xs text-center mt-3">
+                  Нажимая кнопку, вы соглашаетесь с правилами сообщества
+                </p>
+              </>
+            ) : (
+              <div className="text-center py-4">
+                <div className="w-16 h-16 bg-[#3ba55c]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Shield className="w-8 h-8 text-[#3ba55c]" />
+                </div>
+                <h3 className="text-white font-bold text-lg mb-2">Код отправлен!</h3>
+                <p className="text-[#b9bbbe] text-sm">
+                  Проверьте СМС на номере +7 {phone.slice(0, 3)} {phone.slice(3, 6)} {phone.slice(6, 8)} {phone.slice(8)}
+                </p>
+              </div>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 };
