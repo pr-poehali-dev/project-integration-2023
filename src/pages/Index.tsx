@@ -269,13 +269,22 @@ const Index = () => {
                         </div>
                       </div>
 
-                      <div className="flex border-b border-[#40444b] mb-3 sm:mb-4">
+                      <div className="flex items-center border-b border-[#40444b] mb-3 sm:mb-4">
                         <button className="px-3 sm:px-4 py-2 text-white text-xs sm:text-sm font-medium border-b-2 border-[#5865f2]">
                           Обо мне
                         </button>
                         <button className="px-3 sm:px-4 py-2 text-[#8e9297] text-xs sm:text-sm font-medium hover:text-[#dcddde]">
                           Активность
                         </button>
+                        <div className="ml-auto">
+                          <Button
+                            onClick={() => setRegOpen(true)}
+                            className="bg-[#5865f2] hover:bg-[#4752c4] text-white px-3 py-1 rounded text-xs font-medium flex items-center gap-1"
+                          >
+                            <MessageCircle className="w-3 h-3" />
+                            Написать
+                          </Button>
+                        </div>
                       </div>
 
                       <div>
