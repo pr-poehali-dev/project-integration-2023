@@ -406,8 +406,18 @@ const Index = () => {
 
             {/* Поле ввода сообщения */}
             <div className="p-2 sm:p-4">
-              <div className="bg-[#40444b] rounded-lg px-3 sm:px-4 py-2 sm:py-3">
+              <div
+                className="bg-[#40444b] rounded-lg px-3 sm:px-4 py-2 sm:py-3 flex items-center justify-between cursor-pointer hover:bg-[#4a4f57] transition-colors"
+                onClick={() => setRegOpen(true)}
+              >
                 <div className="text-[#72767d] text-xs sm:text-sm">Написать в #общий...</div>
+                <Button
+                  onClick={(e) => { e.stopPropagation(); setRegOpen(true); }}
+                  className="bg-[#5865f2] hover:bg-[#4752c4] text-white px-4 py-1.5 rounded text-xs font-medium flex items-center gap-1.5"
+                >
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  Написать
+                </Button>
               </div>
             </div>
           </div>
